@@ -28,6 +28,10 @@
             android:name=".pages.article.TambahArticleActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".pages.article.EditArticlectivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

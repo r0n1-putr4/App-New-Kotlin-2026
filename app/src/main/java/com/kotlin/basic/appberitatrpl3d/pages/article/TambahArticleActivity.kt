@@ -52,6 +52,8 @@ class TambahArticleActivity : AppCompatActivity() {
             val judul = binding.etJudul.text.toString()
             val rating = binding.rbArticle.rating.toString()
             val isi = binding.etIsi.text.toString()
+
+
             if ( (imageFile != null) && (judul.isNotEmpty()) &&
                 (rating.isNotEmpty()) && (isi.isNotEmpty()) ) {
 

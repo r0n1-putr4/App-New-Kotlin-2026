@@ -1,5 +1,6 @@
 package com.kotlin.basic.appberitatrpl3d.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.basic.appberitatrpl3d.R
 import com.kotlin.basic.appberitatrpl3d.config.ApiClient
 import com.kotlin.basic.appberitatrpl3d.models.ArticleModel
+import com.kotlin.basic.appberitatrpl3d.pages.article.EditArticlectivity
 import com.squareup.picasso.Picasso
 
 class ArticleAdapter(
@@ -33,15 +35,30 @@ class ArticleAdapter(
 
     override fun onBindViewHolder(holder: ArticleAdapter.ViewArticle, position: Int) {
         val itemArticle = listArticle[position]
-                                    "http://10.20.30.181:8080/api-berita-trpl3d/" +
-                                            "uploads/Mahasiswa-Baru-di-PKKMB-2026-01.jpeg"
-        Picasso.get().load(ApiClient.BASE_URL+"/api-berita-trpl3d/"+itemArticle.cover)
+        //  "http://10.20.30.181:8080/api-berita-trpl3d/" +
+        //  "uploads/Mahasiswa-Baru-di-PKKMB-2026-01.jpeg"
+        Picasso.get().load(ApiClient.BASE_URL + "/api-berita-trpl3d/" + itemArticle.cover)
             .into(holder.ivArticle)
         holder.tvJudul.text = itemArticle.judul
         holder.tvTanggal.text = itemArticle.tanggal_publish_
         holder.rbArticle.rating =
             itemArticle.rating_.toString().toFloat()
         holder.tvPenulis.text = itemArticle.fullname
+        holder.btnEdit.setOnClickListener {
+            holder.itemView.context.startActivity(
+                Intent(
+                    holder.itemView.context,
+                    EditArticlectivity::class.java
+                )
+                    .putExtra("id", itemArticle.id)
+                    .putExtra("user_id", itemArticle.user_id)
+                    .putExtra("judul", itemArticle.judul)
+                    .putExtra("isi", itemArticle.isi)
+                    .putExtra("cover", itemArticle.cover)
+                    .putExtra("rating", itemArticle.rating_)
+            )
+        }
+
     }
 
     override fun getItemCount(): Int = listArticle.size

@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiClient {
 
     //    private const val BASE_URL = "https://www.themealdb.com"
-    const val BASE_URL = "http://10.20.30.48:8080"
+    const val BASE_URL = "http://192.168.1.20:8080"
 
     private fun interceptor(): OkHttpClient {
         val interceptor = HttpLoggingInterceptor()

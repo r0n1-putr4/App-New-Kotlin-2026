@@ -11,6 +11,7 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -24,6 +25,18 @@ interface ApiService {
         @Part("judul") judul: RequestBody,
         @Part("isi") isi: RequestBody,
         @Part cover: MultipartBody.Part,
+        @Part("rating") rating: RequestBody
+
+    ): Call<ResponModel>
+
+    @Multipart
+    @POST("/api-berita-trpl3d/updateArticle_.php")
+    fun updateArticle(
+        @Query("id") id: String,
+        @Part("user_id") user_id: RequestBody,
+        @Part("judul") judul: RequestBody,
+        @Part("isi") isi: RequestBody,
+        @Part cover: MultipartBody.Part?,
         @Part("rating") rating: RequestBody
 
     ): Call<ResponModel>

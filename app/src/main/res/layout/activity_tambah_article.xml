@@ -37,6 +37,7 @@
             android:drawablePadding="5dp"
             android:paddingStart="10dp"
             android:id="@+id/etJudul"
+            android:drawableTint="#F44336"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -67,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rbArticle"
+            android:progressTint="#FFEB3B"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -80,6 +82,8 @@
             android:background="@drawable/style_edit_text"
             android:inputType="textMultiLine"
             android:id="@+id/etIsi"
+            android:gravity="top|start"
+            android:padding="15dp"
             />
         <RelativeLayout
             android:layout_width="match_parent"
@@ -91,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:text="SIMPAN"
                 android:id="@+id/btnSimpan"
+                android:layout_marginBottom="10dp"
                 />
             <ProgressBar
                 android:layout_width="wrap_content"

@@ -1,6 +1,7 @@
 package com.kotlin.basic.appberitatrpl3d.adapters
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,15 +9,22 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.basic.appberitatrpl3d.R
 import com.kotlin.basic.appberitatrpl3d.config.ApiClient
 import com.kotlin.basic.appberitatrpl3d.models.ArticleModel
+import com.kotlin.basic.appberitatrpl3d.models.ResponModel
+import com.kotlin.basic.appberitatrpl3d.pages.article.ArticleActivity
 import com.kotlin.basic.appberitatrpl3d.pages.article.EditArticlectivity
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ArticleAdapter(
-    val listArticle: List<ArticleModel.Article>
+    val listArticle: MutableList<ArticleModel.Article>
 ) : RecyclerView.Adapter<ArticleAdapter.ViewArticle>() {
 
 
@@ -58,6 +66,50 @@ class ArticleAdapter(
                     .putExtra("rating", itemArticle.rating_)
             )
         }
+        holder.btnDelete.setOnClickListener {
+            AlertDialog.Builder(holder.itemView.context).apply {
+                setTitle("Konfirmasi")
+                setMessage("Apakah anda ingin melanjutkan?")
+                setIcon(R.drawable.ic_delete)
+                setPositiveButton("Ya") { _, _ ->
+                    ApiClient.apiService.deleteArticle(itemArticle.id).enqueue(object : Callback<ResponModel?> {
+                        override fun onResponse(
+                            call: Call<ResponModel?>,
+                            response: Response<ResponModel?>
+                        ) {
+                            if (response.isSuccessful) {
+                                val respon = response.body()!!
+                                val success = respon.success
+                                val message = respon.message
+
+                                if (success) {
+                                   removeItem(position)
+                                }
+
+                                Toast.makeText(
+                                    holder.itemView.context,
+                                    message,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<ResponModel?>, t: Throwable) {
+                            Toast.makeText(
+                                holder.itemView.context,
+                                "Gagal Terhubung ke API",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
+
+
+                }
+                setNegativeButton("Tidak") { dialogInterface, _ ->
+                    dialogInterface.dismiss()
+                }
+            }.show()
+        }
 
     }
 
@@ -74,5 +126,15 @@ class ArticleAdapter(
         val btnDelete = view.findViewById<Button>(R.id.btnDelete)
 
 
+    }
+
+    fun removeItem(position: Int) {
+
+        listArticle.removeAt(position)
+        notifyItemRemoved(position) // Notify the position of the removed item
+        notifyItemRangeChanged(
+            position,
+            listArticle.size - position
+        ) // Optional: Adjust for index shifts
     }
 }

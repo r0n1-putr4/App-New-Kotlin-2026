@@ -40,4 +40,7 @@ interface ApiService {
         @Part("rating") rating: RequestBody
 
     ): Call<ResponModel>
+
+    @GET("/api-berita-trpl3d/deleteArticle.php")
+    fun deleteArticle(@Query("id") id: String): Call<ResponModel>
 }

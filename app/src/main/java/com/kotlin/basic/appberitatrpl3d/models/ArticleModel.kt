@@ -3,7 +3,7 @@ package com.kotlin.basic.appberitatrpl3d.models
 data class ArticleModel(
     val success: Boolean,
     val message: String,
-    val listArticle: List<Article>
+    val listArticle: MutableList<Article>
 ){
     data class Article(
         val id: String,

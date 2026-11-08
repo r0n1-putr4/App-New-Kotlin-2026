@@ -2,6 +2,8 @@ package com.kotlin.basic.appberitatrpl3d.pages.article
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +34,29 @@ class ArticleActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        binding.etSearch.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+                showArticle(p0.toString())
+            }
+
+            override fun beforeTextChanged(
+                p0: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int
+            ) {
+
+            }
+
+            override fun onTextChanged(
+                p0: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int
+            ) {
+
+            }
+        })
         showArticle()
         binding.fabTambah.setOnClickListener {
             startActivity(Intent(this,
@@ -39,16 +64,28 @@ class ArticleActivity : AppCompatActivity() {
         }
     }
 
-    private fun showArticle() {
+    private fun showArticle(search: String? = null) {
         binding.pbArticle.visibility = View.VISIBLE
-        ApiClient.apiService.getArticles().enqueue(object : Callback<ArticleModel> {
+        ApiClient.apiService.getArticles(search).enqueue(object : Callback<ArticleModel> {
             override fun onResponse(
                 call: Call<ArticleModel?>,
                 response: Response<ArticleModel?>
             ) {
                 if (response.isSuccessful) {
-                    val listArticle = response.body()!!.listArticle
-                    binding.rvArticle.adapter = ArticleAdapter(listArticle)
+                    val respon = response.body()!!
+                    val success = respon.success
+                    val message = respon.message
+                    if (success){
+                        binding.rvArticle.visibility = View.VISIBLE
+                        binding.ivNotFound.visibility = View.GONE
+                        val listArticle = respon.listArticle
+                        binding.rvArticle.adapter = ArticleAdapter(listArticle)
+                    }else{
+                       binding.rvArticle.visibility = View.GONE
+                        binding.ivNotFound.visibility = View.VISIBLE
+                    }
+
+
                 } else {
                     binding.lnErrorArticle.visibility = View.VISIBLE
                 }

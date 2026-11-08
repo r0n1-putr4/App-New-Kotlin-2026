@@ -7,12 +7,29 @@
     android:layout_height="match_parent"
     tools:context=".pages.article.ArticleActivity">
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:hint="Search"
+        android:drawableEnd="@drawable/ic_search"
+        android:background="@drawable/style_edit_text"
+        android:drawablePadding="5dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:id="@+id/etSearch"
+        android:drawableTint="#E91E63"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvArticle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/article_layout" />
+        tools:listitem="@layout/article_layout"
+        android:layout_below="@id/etSearch"
+        />
 
     <ProgressBar
         android:id="@+id/pbArticle"
@@ -20,6 +37,15 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_not_found"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:id="@+id/ivNotFound"
+        />
 
     <LinearLayout
         android:id="@+id/lnErrorArticle"

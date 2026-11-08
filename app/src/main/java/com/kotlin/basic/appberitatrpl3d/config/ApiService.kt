@@ -15,8 +15,10 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("/api-berita-trpl3d/listArticle.php")
-    fun getArticles(): Call<ArticleModel>
+    @GET("/api-berita-trpl3d/listArticle_.php")
+    fun getArticles(
+        @Query("search") search: String? = null
+    ): Call<ArticleModel>
 
     @Multipart
     @POST("/api-berita-trpl3d/insertArticle.php")

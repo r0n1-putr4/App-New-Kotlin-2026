@@ -34,7 +34,7 @@ class ArticleActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        binding.etSearch.addTextChangedListener(object : TextWatcher{
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 showArticle(p0.toString())
             }
@@ -59,8 +59,12 @@ class ArticleActivity : AppCompatActivity() {
         })
         showArticle()
         binding.fabTambah.setOnClickListener {
-            startActivity(Intent(this,
-                TambahArticleActivity::class.java))
+            startActivity(
+                Intent(
+                    this,
+                    TambahArticleActivity::class.java
+                )
+            )
         }
     }
 
@@ -75,13 +79,13 @@ class ArticleActivity : AppCompatActivity() {
                     val respon = response.body()!!
                     val success = respon.success
                     val message = respon.message
-                    if (success){
+                    if (success) {
                         binding.rvArticle.visibility = View.VISIBLE
                         binding.ivNotFound.visibility = View.GONE
                         val listArticle = respon.listArticle
                         binding.rvArticle.adapter = ArticleAdapter(listArticle)
-                    }else{
-                       binding.rvArticle.visibility = View.GONE
+                    } else {
+                        binding.rvArticle.visibility = View.GONE
                         binding.ivNotFound.visibility = View.VISIBLE
                     }
 

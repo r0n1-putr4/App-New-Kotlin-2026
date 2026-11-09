@@ -85,7 +85,8 @@ class ArticleActivity : AppCompatActivity() {
                         val listArticle = respon.listArticle
                         binding.rvArticle.adapter = ArticleAdapter(listArticle)
                     } else {
-                        binding.rvArticle.visibility = View.GONE
+                        binding.rvArticle.adapter = ArticleAdapter(mutableListOf())
+//                        binding.rvArticle.visibility = View.GONE
                         binding.ivNotFound.visibility = View.VISIBLE
                     }
 

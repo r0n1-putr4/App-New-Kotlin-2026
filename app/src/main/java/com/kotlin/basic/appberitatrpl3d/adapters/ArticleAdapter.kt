@@ -83,7 +83,12 @@ class ArticleAdapter(
                                 val message = respon.message
 
                                 if (success) {
-                                   removeItem(position)
+//                                   removeItem
+                                    val position = holder.bindingAdapterPosition
+
+                                    if (position != RecyclerView.NO_POSITION) {
+                                        removeItem(position)
+                                    }
                                 }
 
                                 Toast.makeText(
@@ -129,12 +134,14 @@ class ArticleAdapter(
     }
 
     fun removeItem(position: Int) {
+        if (position in listArticle.indices) {
+            listArticle.removeAt(position)
+            notifyItemRemoved(position) // Notify the position of the removed item
+            notifyItemRangeChanged(
+                position,
+                listArticle.size - position
+            ) // Optional: Adjust for index shifts
+        }
 
-        listArticle.removeAt(position)
-        notifyItemRemoved(position) // Notify the position of the removed item
-        notifyItemRangeChanged(
-            position,
-            listArticle.size - position
-        ) // Optional: Adjust for index shifts
     }
 }

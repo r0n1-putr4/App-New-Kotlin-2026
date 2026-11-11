@@ -72,6 +72,7 @@ class ArticleAdapter(
                 setMessage("Apakah anda ingin melanjutkan?")
                 setIcon(R.drawable.ic_delete)
                 setPositiveButton("Ya") { _, _ ->
+                    holder.btnDelete.isEnabled = false
                     ApiClient.apiService.deleteArticle(itemArticle.id).enqueue(object : Callback<ResponModel?> {
                         override fun onResponse(
                             call: Call<ResponModel?>,
@@ -96,6 +97,7 @@ class ArticleAdapter(
                                     message,
                                     Toast.LENGTH_SHORT
                                 ).show()
+//                                holder.btnDelete.isEnabled = true
                             }
                         }
 
@@ -105,6 +107,7 @@ class ArticleAdapter(
                                 "Gagal Terhubung ke API",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            holder.btnDelete.isEnabled = true
                         }
                     })
 

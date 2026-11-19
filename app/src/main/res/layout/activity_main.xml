@@ -7,21 +7,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
-
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolBar"
-        android:background="#4CAF50">
+        android:background="#82BCFB">
 
         <ImageView
+            android:id="@+id/ivUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:src="@drawable/ic_username"
-            android:id="@+id/ivUser"
-            />
+            android:src="@drawable/ic_username" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -30,6 +27,13 @@
             android:layout_marginEnd="10dp"
             android:src="@drawable/ic_judul" />
     </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_app_berita"
+        android:scaleType="centerCrop"
+        />
 
 
 </LinearLayout>

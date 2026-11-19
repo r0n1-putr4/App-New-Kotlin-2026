@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7FB"
-    android:fillViewport="true"
     tools:context=".pages.LoginActivity">
 
     <LinearLayout
@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome Back!"
+            android:text="LOGIN"
             android:textColor="#1E293B"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -44,10 +44,10 @@
             android:layout_height="55dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_edittext"
-            android:hint="Masukkan username"
-            android:inputType="text"
             android:drawableStart="@drawable/ic_username"
             android:drawablePadding="5dp"
+            android:hint="Masukkan username"
+            android:inputType="text"
             android:padding="15dp"
             android:textSize="14sp" />
 
@@ -66,12 +66,14 @@
             android:layout_height="55dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_edittext"
+            android:drawableEnd="@drawable/ic_password"
+            android:drawablePadding="5dp"
             android:hint="Masukkan password"
             android:inputType="textPassword"
             android:padding="15dp"
             android:textSize="14sp" />
 
-        <!-- Button Login -->
+
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
@@ -92,4 +94,4 @@
 
     </LinearLayout>
 
-</ScrollView>
+</RelativeLayout>

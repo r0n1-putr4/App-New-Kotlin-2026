@@ -1,6 +1,7 @@
 package com.kotlin.basic.appberitatrpl3d.config
 
 import com.kotlin.basic.appberitatrpl3d.models.ArticleModel
+import com.kotlin.basic.appberitatrpl3d.models.LoginModel
 import com.kotlin.basic.appberitatrpl3d.models.ResponModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -45,4 +46,11 @@ interface ApiService {
 
     @GET("/api-berita-trpl3d/deleteArticle.php")
     fun deleteArticle(@Query("id") id: String): Call<ResponModel>
+
+    @FormUrlEncoded
+    @POST("/api-berita-trpl3d/login.php")
+    fun login(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): Call<LoginModel>
 }

@@ -2,6 +2,7 @@ package com.kotlin.basic.appberitatrpl3d.pages
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -39,49 +40,64 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUser() {
-
         binding.btnLogin.setOnClickListener {
             val username = binding.etUsername.text.toString()
             val password = binding.etPassword.text.toString()
+            binding.pbLogin.visibility = View.VISIBLE
+            binding.btnLogin.visibility = View.GONE
+            ApiClient.apiService.login(username, password)
+                .enqueue(object : Callback<LoginModel> {
+                    override fun onResponse(
+                        call: Call<LoginModel?>,
+                        response: Response<LoginModel?>
+                    ) {
+                        if (response.isSuccessful) {
+                            val responseBody = response.body()!!
+                            val success = responseBody.success
+                            val message = responseBody.message
+                            if (success) {
 
-            ApiClient.apiService.login(username, password).enqueue(object : Callback<LoginModel> {
-                override fun onResponse(
-                    call: Call<LoginModel?>,
-                    response: Response<LoginModel?>
-                ) {
-                    if (response.isSuccessful) {
-                        val responseLogin = response.body()!!
-                        val success = responseLogin.success
-                        val message = responseLogin.message
-                        if (success) {
-                            val session = SessionManager(this@LoginActivity)
-                            session.saveLogin(
-                                responseLogin.user.id,
-                                responseLogin.user.fullname,
-                                responseLogin.user.username,
-                                responseLogin.user.email
-                            )
-                            startActivity(
-                                Intent(
-                                    this@LoginActivity,
-                                    MainActivity::class.java
+                                val sessionManager =
+                                    SessionManager(this@LoginActivity)
+                                sessionManager.saveLogin(
+                                    responseBody.user.id,
+                                    responseBody.user.fullname,
+                                    responseBody.user.username,
+                                    responseBody.user.email
                                 )
-                            )
-                        } else {
-                            Toast.makeText(this@LoginActivity, message, Toast.LENGTH_LONG).show()
+                                startActivity(
+                                    Intent(
+                                        this@LoginActivity,
+                                        MainActivity::class.java
+                                    )
+                                )
+                                finish()
+
+                            } else {
+                                Toast.makeText(
+                                    this@LoginActivity,
+                                    message,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            binding.pbLogin.visibility = View.GONE
+                            binding.btnLogin.visibility = View.VISIBLE
                         }
                     }
-                }
 
-                override fun onFailure(
-                    call: Call<LoginModel?>,
-                    t: Throwable
-                ) {
-
-                }
-            })
+                    override fun onFailure(
+                        call: Call<LoginModel?>,
+                        t: Throwable
+                    ) {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Terjadi kesalahan",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        binding.pbLogin.visibility = View.GONE
+                        binding.btnLogin.visibility = View.VISIBLE
+                    }
+                })
         }
-
-
     }
 }

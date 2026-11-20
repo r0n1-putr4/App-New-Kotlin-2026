@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
@@ -24,6 +25,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ArticleAdapter(
+    val user_id: String,
     val listArticle: MutableList<ArticleModel.Article>
 ) : RecyclerView.Adapter<ArticleAdapter.ViewArticle>() {
 
@@ -119,6 +121,10 @@ class ArticleAdapter(
             }.show()
         }
 
+        if (user_id != itemArticle.user_id){
+            holder.lnEditHapus.visibility = View.GONE
+        }
+
     }
 
     override fun getItemCount(): Int = listArticle.size
@@ -132,7 +138,7 @@ class ArticleAdapter(
         val tvPenulis = view.findViewById<TextView>(R.id.tvPenulis)
         val btnEdit = view.findViewById<Button>(R.id.btnEdit)
         val btnDelete = view.findViewById<Button>(R.id.btnDelete)
-
+        val lnEditHapus = view.findViewById<LinearLayout>(R.id.lnEditHapus)
 
     }
 

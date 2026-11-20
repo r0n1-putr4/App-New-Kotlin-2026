@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_logout"
         app:showAsAction="always"
         android:id="@+id/menuLogout"
-        android:iconTint="#fff"
+        app:tint="#fff"
         />
     <item
         android:title="User"

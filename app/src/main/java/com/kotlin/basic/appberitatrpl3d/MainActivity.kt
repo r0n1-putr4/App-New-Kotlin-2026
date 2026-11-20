@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.kotlin.basic.appberitatrpl3d.config.SessionManager
 import com.kotlin.basic.appberitatrpl3d.databinding.ActivityMainBinding
 import com.kotlin.basic.appberitatrpl3d.pages.LoginActivity
+import com.kotlin.basic.appberitatrpl3d.pages.article.ArticleActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -26,15 +27,17 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         sessionManager = SessionManager(this)
-        if (!sessionManager.cekLogin()){
-            startActivity(Intent(this,
-                LoginActivity::class.java))
-        }
+
     }
 
     override fun onStart() {
         super.onStart()
         setSupportActionBar(binding.toolBar)
+        if (!sessionManager.cekLogin()){
+            startActivity(Intent(this,
+                LoginActivity::class.java))
+            finish()
+        }
         supportActionBar?.title =
             "Hello, ${sessionManager.getFullName()}"
 
@@ -53,11 +56,11 @@ class MainActivity : AppCompatActivity() {
                     LoginActivity::class.java))
                 true
             }
-//            R.id.menuKamera -> {
-//                startActivity(Intent(this,
-//                    RadioCheckBoxActivity::class.java))
-//                true
-//            }
+            R.id.menuBerita -> {
+                startActivity(Intent(this,
+                    ArticleActivity::class.java))
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

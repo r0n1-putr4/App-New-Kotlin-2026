@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.kotlin.basic.appberitatrpl3d.R
 import com.kotlin.basic.appberitatrpl3d.adapters.ArticleAdapter
 import com.kotlin.basic.appberitatrpl3d.config.ApiClient
+import com.kotlin.basic.appberitatrpl3d.config.SessionManager
 import com.kotlin.basic.appberitatrpl3d.databinding.ActivityArticleBinding
 import com.kotlin.basic.appberitatrpl3d.models.ArticleModel
 import retrofit2.Call
@@ -20,6 +21,7 @@ import retrofit2.Response
 
 class ArticleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityArticleBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -69,6 +71,7 @@ class ArticleActivity : AppCompatActivity() {
     }
 
     private fun showArticle(search: String? = null) {
+        val sessionManager = SessionManager(this)
         binding.pbArticle.visibility = View.VISIBLE
         ApiClient.apiService.getArticles(search).enqueue(object : Callback<ArticleModel> {
             override fun onResponse(
@@ -83,9 +86,10 @@ class ArticleActivity : AppCompatActivity() {
                         binding.rvArticle.visibility = View.VISIBLE
                         binding.ivNotFound.visibility = View.GONE
                         val listArticle = respon.listArticle
-                        binding.rvArticle.adapter = ArticleAdapter(listArticle)
+
+                        binding.rvArticle.adapter = ArticleAdapter(sessionManager.getId().toString(),listArticle)
                     } else {
-                        binding.rvArticle.adapter = ArticleAdapter(mutableListOf())
+                        binding.rvArticle.adapter = ArticleAdapter(sessionManager.getId().toString(),mutableListOf())
 //                        binding.rvArticle.visibility = View.GONE
                         binding.ivNotFound.visibility = View.VISIBLE
                     }

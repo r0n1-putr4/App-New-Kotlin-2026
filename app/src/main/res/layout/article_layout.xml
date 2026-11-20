@@ -84,6 +84,7 @@
             android:orientation="horizontal"
             android:layout_alignBottom="@id/ivArticle"
             android:layout_alignParentEnd="true"
+            android:id="@+id/lnEditHapus"
             android:layout_below="@id/lnArticle"
             >
             <Button

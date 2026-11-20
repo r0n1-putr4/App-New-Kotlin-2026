@@ -56,7 +56,10 @@ class LoginActivity : AppCompatActivity() {
                         if (success) {
                             val session = SessionManager(this@LoginActivity)
                             session.saveLogin(
-                                responseLogin.user.id, responseLogin.user.fullname
+                                responseLogin.user.id,
+                                responseLogin.user.fullname,
+                                responseLogin.user.username,
+                                responseLogin.user.email
                             )
                             startActivity(
                                 Intent(

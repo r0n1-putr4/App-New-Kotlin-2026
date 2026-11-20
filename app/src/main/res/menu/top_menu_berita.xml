@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Logout"
+        android:icon="@drawable/ic_logout"
+        app:showAsAction="always"
+        android:id="@+id/menuLogout"
+        android:iconTint="#fff"
+        />
+    <item
+        android:title="User"
+        android:id="@+id/menuUser"
+        />
+    <item
+        android:title="Berita"
+        android:id="@+id/menuBerita"
+        />
+
+</menu>

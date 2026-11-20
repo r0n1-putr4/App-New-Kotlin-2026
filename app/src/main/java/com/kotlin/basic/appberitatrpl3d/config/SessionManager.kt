@@ -19,14 +19,9 @@ class SessionManager(context: Context) {
         }
     }
 
-    fun isLogin(): Boolean {
-        return prefs.getBoolean("is_login", false)
-    }
+    fun isLogin(): Boolean = prefs.getBoolean("is_login", false)
 
-
-    fun getUserId(): String? {
-        return prefs.getString("user_id", null)
-    }
+    fun getUserId(): String? = prefs.getString("user_id", null)
 
     fun logout() {
         prefs.edit { clear() }

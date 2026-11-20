@@ -11,11 +11,9 @@ class SessionManager(context: Context) {
 
     fun saveLogin(userId: String, username: String) {
         prefs.edit {
-
             putString("user_id", userId)
             putString("username", username)
             putBoolean("is_login", true)
-
         }
     }
 

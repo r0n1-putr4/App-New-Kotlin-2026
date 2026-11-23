@@ -1,9 +1,11 @@
 package com.kotlin.basic.appberitatrpl3d.config
 
 import android.content.Context
+import android.content.Intent
 import androidx.core.content.edit
+import com.kotlin.basic.appberitatrpl3d.pages.LoginActivity
 
-class SessionManager(context: Context) {
+class SessionManager(val context: Context) {
     private val prefs = context.getSharedPreferences(
         "USER_LOGIN",
         Context.MODE_PRIVATE
@@ -21,7 +23,13 @@ class SessionManager(context: Context) {
             putBoolean("is_login",true)
         }
     }
-    fun cekLogin(): Boolean = prefs.getBoolean("is_login",false)
+    fun isLogin(): Boolean = prefs.getBoolean("is_login",false)
+    fun cekLogin(){
+        if (!isLogin()){
+            context.startActivity(Intent(context,
+                LoginActivity::class.java))
+        }
+    }
     fun getId(): String? = prefs.getString("id",null)
     fun getFullName(): String? = prefs.getString("fullname",
         null)

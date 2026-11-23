@@ -33,11 +33,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         setSupportActionBar(binding.toolBar)
-        if (!sessionManager.cekLogin()){
-            startActivity(Intent(this,
-                LoginActivity::class.java))
-            finish()
-        }
+        sessionManager.cekLogin()
         supportActionBar?.title =
             "Hello, ${sessionManager.getFullName()}"
 
